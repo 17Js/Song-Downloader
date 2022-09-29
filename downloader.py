@@ -1,3 +1,12 @@
+#!/usr/bin/env python
+
+# ---------------Usage---------------
+#           > python3 downloader.py
+# > Song list: {The file of the songs you would like to download
+#               Adds .txt extension if none is given}
+# > Output folder: {The location of the folder where the songs are downloaded to
+#                   Makes a new folder if there is none}
+
 # Import packages
 from datetime import datetime
 from pytube import YouTube
@@ -33,12 +42,16 @@ def ts(stamp):
 
 stamp = datetime.now()
 
-# Configuration variables
-songspath = input('Song file: ') + '.txt' # './songs.txt'  # Location of the song list to download
-savepath = input('Output folder: ') # './songs/' # Location to save the songs
+# Configuration
+listpath = input('Song list: ')
+savepath = input('Output folder: ')
+
+# Check if the song file has an extension, if not, add .txt
+if ('.' not in listpath[1:]):
+    listpath += '.txt'
 
 # Get list of songs to download
-songlist = removeNewlines(open(songspath, 'r').readlines())
+songlist = removeNewlines(open(listpath, 'r').readlines())
 
 threads = []
 for song in songlist:
